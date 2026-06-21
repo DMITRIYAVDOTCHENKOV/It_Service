@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IT-услуги: веб-анализ, бизнес-анализ, системный анализ и создание сайтов любой сложности.">
+  <title>NovaTech — IT-услуги и разработка сайтов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">
+        <span class="logo__icon">◆</span>
+        <span class="logo__text">NovaTech</span>
+      </a>
+
+      <nav class="nav" id="nav">
+        <a href="#services" class="nav__link">Услуги</a>
+        <a href="#about" class="nav__link">О нас</a>
+        <a href="#portfolio" class="nav__link">Портфолио</a>
+        <a href="#faq" class="nav__link">FAQ</a>
+        <a href="#contact" class="nav__link nav__link--cta">Связаться</a>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="container hero__wrapper">
+        <div class="hero__inner reveal">
+          <div class="hero__badge">IT-решения под ключ</div>
+          <h1 class="hero__title">
+            Создаём сайты<br>
+            <span class="gradient-text">любой сложности</span>
+          </h1>
+          <p class="hero__desc">
+            От глубокого анализа до запуска продукта — помогаем бизнесу расти
+            с помощью современных цифровых решений.
+          </p>
+          <div class="hero__actions">
+            <a href="#services" class="btn btn--primary">Смотреть услуги</a>
+            <a href="#contact" class="btn btn--ghost">Обсудить проект</a>
+          </div>
+          <div class="hero__stats">
+            <div class="stat">
+              <span class="stat__value">120+</span>
+              <span class="stat__label">проектов</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value">8 лет</span>
+              <span class="stat__label">на рынке</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value">24/7</span>
+              <span class="stat__label">поддержка</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero__media reveal reveal--delay">
+          <img src="img/hero.jpg" alt="Разработка веб-приложений" width="560" height="420" fetchpriority="high">
+          <div class="hero__media-badge">
+            <span class="hero__media-badge-value">98%</span>
+            <span class="hero__media-badge-label">довольных клиентов</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">Каталог услуг</span>
+          <h2 class="section-title">Чем мы можем помочь</h2>
+          <p class="section-desc">
+            Полный цикл — от исследования и анализа до разработки и запуска вашего сайта.
+          </p>
+        </div>
+
+        <div class="services__grid">
+          <article class="service-card reveal">
+            <div class="service-card__media">
+              <img src="img/service-web.jpg" alt="Web-анализ и аудит сайта" width="560" height="280" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Web-анализ</h3>
+              <p class="service-card__text">
+                Аудит сайта, UX/UI, SEO и конкурентов. Выявляем слабые места
+                и точки роста для повышения конверсии.
+              </p>
+              <ul class="service-card__list">
+                <li>Технический аудит</li>
+                <li>Анализ поведения пользователей</li>
+                <li>SEO-диагностика</li>
+              </ul>
+              <div class="service-card__actions">
+                <button type="button" class="btn btn--outline service-card__btn" data-service="web">Подробнее</button>
+                <a href="#contact" class="service-card__link">Заказать →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card reveal reveal--delay">
+            <div class="service-card__media">
+              <img src="img/service-business.jpg" alt="Бизнес-анализ и моделирование процессов" width="560" height="280" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Бизнес-анализ</h3>
+              <p class="service-card__text">
+                Изучаем процессы, цели и потребности бизнеса. Формируем
+                требования и roadmap цифровой трансформации.
+              </p>
+              <ul class="service-card__list">
+                <li>Интервью со стейкхолдерами</li>
+                <li>Моделирование процессов</li>
+                <li>ТЗ и приоритизация</li>
+              </ul>
+              <div class="service-card__actions">
+                <button type="button" class="btn btn--outline service-card__btn" data-service="business">Подробнее</button>
+                <a href="#contact" class="service-card__link">Заказать →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card__media">
+              <img src="img/service-system.jpg" alt="Системный анализ и архитектура IT" width="560" height="280" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Системный анализ</h3>
+              <p class="service-card__text">
+                Проектируем архитектуру, интеграции и API. Обеспечиваем
+                масштабируемость и надёжность IT-систем.
+              </p>
+              <ul class="service-card__list">
+                <li>Архитектура решений</li>
+                <li>Интеграции и API</li>
+                <li>Документация систем</li>
+              </ul>
+              <div class="service-card__actions">
+                <button type="button" class="btn btn--outline service-card__btn" data-service="system">Подробнее</button>
+                <a href="#contact" class="service-card__link">Заказать →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card service-card--featured reveal reveal--delay">
+            <div class="service-card__media">
+              <img src="img/service-development.jpg" alt="Разработка сайтов и веб-приложений" width="560" height="280" loading="lazy">
+            </div>
+            <div class="service-card__body">
+              <div class="service-card__badge">Популярно</div>
+              <div class="service-card__icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                </svg>
+              </div>
+              <h3 class="service-card__title">Создание сайтов</h3>
+              <p class="service-card__text">
+                Разрабатываем лендинги, корпоративные сайты и веб-приложения
+                любой сложности — от MVP до enterprise.
+              </p>
+              <ul class="service-card__list">
+                <li>Дизайн и вёрстка</li>
+                <li>Frontend и Backend</li>
+                <li>Запуск и поддержка</li>
+              </ul>
+              <div class="service-card__actions">
+                <button type="button" class="btn btn--outline service-card__btn" data-service="development">Подробнее</button>
+                <a href="#contact" class="service-card__link">Обсудить →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="container about__inner">
+        <div class="about__content reveal">
+          <span class="section-tag">О нас</span>
+          <h2 class="section-title">Цифровые продукты, которые работают</h2>
+          <p class="about__text">
+            NovaTech — команда аналитиков и разработчиков. Мы не просто пишем код:
+            сначала разбираемся в вашем бизнесе, затем проектируем решение
+            и доводим его до результата.
+          </p>
+          <ul class="about__features">
+            <li>
+              <span class="about__check">✓</span>
+              Прозрачные сроки и фиксированная смета
+            </li>
+            <li>
+              <span class="about__check">✓</span>
+              Agile-подход с еженедельными демо
+            </li>
+            <li>
+              <span class="about__check">✓</span>
+              Гарантия и техподдержка после запуска
+            </li>
+          </ul>
+        </div>
+        <div class="about__visual reveal reveal--delay">
+          <div class="about__photo">
+            <img src="img/about-team.jpg" alt="Команда NovaTech за работой" width="520" height="400" loading="lazy">
+          </div>
+          <div class="about__card">
+            <div class="about__card-row">
+              <span class="about__dot about__dot--green"></span>
+              <span>Анализ завершён</span>
+            </div>
+            <div class="about__card-row">
+              <span class="about__dot about__dot--blue"></span>
+              <span>Дизайн в работе</span>
+            </div>
+            <div class="about__card-row">
+              <span class="about__dot about__dot--purple"></span>
+              <span>Разработка 78%</span>
+            </div>
+            <div class="about__progress">
+              <div class="about__progress-bar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">Портфолио</span>
+          <h2 class="section-title">Примеры наших работ</h2>
+          <p class="section-desc">
+            Реальные проекты — от лендингов до сложных веб-платформ для бизнеса.
+          </p>
+        </div>
+        <div class="portfolio__grid">
+          <figure class="portfolio__item reveal">
+            <img src="img/portfolio-1.jpg" alt="Корпоративный сайт для IT-компании" width="380" height="260" loading="lazy">
+            <figcaption class="portfolio__caption">
+              <span class="portfolio__tag">Корпоративный сайт</span>
+              <h3>FinTech Portal</h3>
+              <p>Многостраничный портал с личным кабинетом</p>
+            </figcaption>
+          </figure>
+          <figure class="portfolio__item reveal reveal--delay">
+            <img src="img/portfolio-2.jpg" alt="Интерфейс веб-приложения" width="380" height="260" loading="lazy">
+            <figcaption class="portfolio__caption">
+              <span class="portfolio__tag">Веб-приложение</span>
+              <h3>CRM Dashboard</h3>
+              <p>Аналитика и управление клиентами</p>
+            </figcaption>
+          </figure>
+          <figure class="portfolio__item reveal reveal--delay-2">
+            <img src="img/portfolio-3.jpg" alt="Мобильный лендинг продукта" width="380" height="260" loading="lazy">
+            <figcaption class="portfolio__caption">
+              <span class="portfolio__tag">Лендинг</span>
+              <h3>Product Launch</h3>
+              <p>Промо-страница с конверсией 12%</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="section-tag">FAQ</span>
+          <h2 class="section-title">Частые вопросы</h2>
+          <p class="section-desc">
+            Ответы на популярные вопросы о наших услугах и процессе работы.
+          </p>
+        </div>
+
+        <div class="faq__list">
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Сколько времени занимает создание сайта?</span>
+              <span class="faq-item__icon">+</span>
+            </button>
+            <div class="faq-item__answer">
+              <p>
+                Срок зависит от сложности: лендинг — от 2 недель, корпоративный сайт —
+                1–2 месяца, веб-приложение — от 2 месяцев. После брифа мы даём
+                точную оценку сроков.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Нужен ли анализ перед разработкой?</span>
+              <span class="faq-item__icon">+</span>
+            </button>
+            <div class="faq-item__answer">
+              <p>
+                Для небольших проектов достаточно короткого брифа. Для сложных систем
+                рекомендуем web-, бизнес- или системный анализ — это снижает риски
+                переделок и экономит бюджет.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Как формируется стоимость?</span>
+              <span class="faq-item__icon">+</span>
+            </button>
+            <div class="faq-item__answer">
+              <p>
+                Стоимость рассчитывается индивидуально после анализа требований.
+                Мы предлагаем фиксированную смету или почасовую модель —
+                в зависимости от типа проекта.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Предоставляете ли поддержку после запуска?</span>
+              <span class="faq-item__icon">+</span>
+            </button>
+            <div class="faq-item__answer">
+              <p>
+                Да. Мы предлагаем пакеты технической поддержки: обновления, мониторинг,
+                исправление ошибок и развитие функционала по запросу.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-item__question" aria-expanded="false">
+              <span>Можно ли заказать только анализ без разработки?</span>
+              <span class="faq-item__icon">+</span>
+            </button>
+            <div class="faq-item__answer">
+              <p>
+                Конечно. Web-, бизнес- и системный анализ доступны как отдельные услуги.
+                Вы получите отчёт с рекомендациями и техническое задание для вашей команды
+                или подрядчика.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact__box">
+          <div class="contact__info">
+            <h2 class="contact__title">Готовы обсудить проект?</h2>
+            <p class="contact__desc">
+              Оставьте заявку — свяжемся в течение рабочего дня и предложим
+              оптимальное решение под ваши задачи.
+            </p>
+            <div class="contact__details">
+              <a href="mailto:hello@novatech.ru" class="contact__detail">hello@novatech.ru</a>
+              <a href="tel:+74951234567" class="contact__detail">+7 (495) 123-45-67</a>
+            </div>
+          </div>
+          <form class="contact__form" id="contactForm">
+            <input type="text" name="name" placeholder="Ваше имя" required class="contact__input">
+            <input type="email" name="email" placeholder="Email" required class="contact__input">
+            <textarea name="message" placeholder="Расскажите о проекте" rows="4" required class="contact__input contact__textarea"></textarea>
+            <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="logo logo--footer">
+          <span class="logo__icon">◆</span>
+          <span class="logo__text">NovaTech</span>
+        </a>
+        <p class="footer__tagline">IT-услуги и разработка сайтов любой сложности</p>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Навигация</h4>
+        <a href="#services" class="footer__link">Услуги</a>
+        <a href="#about" class="footer__link">О нас</a>
+        <a href="#portfolio" class="footer__link">Портфолио</a>
+        <a href="#faq" class="footer__link">FAQ</a>
+        <a href="#contact" class="footer__link">Контакты</a>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Услуги</h4>
+        <a href="#services" class="footer__link">Web-анализ</a>
+        <a href="#services" class="footer__link">Бизнес-анализ</a>
+        <a href="#services" class="footer__link">Системный анализ</a>
+        <a href="#services" class="footer__link">Создание сайтов</a>
+      </div>
+
+      <div class="footer__col">
+        <h4 class="footer__heading">Контакты</h4>
+        <a href="mailto:hello@novatech.ru" class="footer__link">hello@novatech.ru</a>
+        <a href="tel:+74951234567" class="footer__link">+7 (495) 123-45-67</a>
+        <span class="footer__link footer__link--muted">Москва, Россия</span>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <span>© 2026 NovaTech. Все права защищены.</span>
+        <div class="footer__legal">
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Пользовательское соглашение</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" id="serviceModal" aria-hidden="true">
+    <div class="modal__overlay" data-modal-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" type="button" aria-label="Закрыть" data-modal-close>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <div class="modal__image" id="modalImage"></div>
+      <div class="modal__header">
+        <div class="modal__icon" id="modalIcon"></div>
+        <div>
+          <h2 class="modal__title" id="modalTitle"></h2>
+          <p class="modal__lead" id="modalLead"></p>
+        </div>
+      </div>
+      <div class="modal__body" id="modalBody"></div>
+      <div class="modal__footer">
+        <span class="modal__meta" id="modalMeta"></span>
+        <a href="#contact" class="btn btn--primary" id="modalCta" data-modal-close>Заказать услугу</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
