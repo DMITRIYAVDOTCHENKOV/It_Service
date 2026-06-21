@@ -12,6 +12,38 @@
   const modalIcon = document.getElementById('modalIcon');
   const modalImage = document.getElementById('modalImage');
   const modalCta = document.getElementById('modalCta');
+  const contactStatus = document.getElementById('contactStatus');
+  const chatLauncher = document.getElementById('chatLauncher');
+  const leadChat = document.getElementById('leadChat');
+  const chatClose = document.getElementById('chatClose');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatQuick = document.getElementById('chatQuick');
+  const chatForm = document.getElementById('chatForm');
+  const chatInput = document.getElementById('chatInput');
+  const leadEndpoint = document.querySelector('meta[name="lead-endpoint"]')?.content.trim();
+
+  async function submitLead(lead) {
+    if (leadEndpoint) {
+      const response = await fetch(leadEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...lead, page: window.location.href, createdAt: new Date().toISOString() }),
+      });
+
+      if (!response.ok) throw new Error('Не удалось отправить заявку');
+      return { delivered: true };
+    }
+
+    const subject = encodeURIComponent(`Новая заявка NovaTech — ${lead.service || 'с сайта'}`);
+    const body = encodeURIComponent([
+      `Имя: ${lead.name}`,
+      `Контакт: ${lead.contact}`,
+      `Услуга: ${lead.service || 'Не указана'}`,
+      `Задача: ${lead.message}`,
+    ].join('\n'));
+    window.location.href = `mailto:hello@novatech.ru?subject=${subject}&body=${body}`;
+    return { delivered: false };
+  }
 
   const serviceIcons = {
     web: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>',
@@ -225,17 +257,155 @@
     });
   });
 
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
-    btn.textContent = 'Заявка отправлена ✓';
+    const data = new FormData(contactForm);
+    btn.textContent = 'Отправляем…';
     btn.disabled = true;
-    contactForm.reset();
 
-    setTimeout(() => {
+    try {
+      const result = await submitLead({
+        source: 'contact-form',
+        name: data.get('name'),
+        contact: data.get('contact'),
+        message: data.get('message'),
+      });
+      contactStatus.textContent = result.delivered
+        ? 'Спасибо! Заявка отправлена. Скоро с вами свяжемся.'
+        : 'Открылось письмо с заявкой — отправьте его, чтобы оператор получил данные.';
+      contactForm.reset();
+    } catch (error) {
+      contactStatus.textContent = 'Не получилось отправить заявку. Напишите нам на hello@novatech.ru.';
+    } finally {
       btn.textContent = originalText;
       btn.disabled = false;
-    }, 3000);
+    }
+  });
+
+  const chatLead = { source: 'chat', service: '', name: '', contact: '', message: '' };
+  let chatStep = 'service';
+  let chatStarted = false;
+
+  function addChatMessage(text, type = 'bot') {
+    const message = document.createElement('div');
+    message.className = `chat-message${type === 'user' ? ' chat-message--user' : ''}`;
+    message.textContent = text;
+    chatMessages.appendChild(message);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function setQuickReplies(items = []) {
+    chatQuick.replaceChildren();
+    items.forEach((label) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = label;
+      button.addEventListener('click', () => handleChatAnswer(label));
+      chatQuick.appendChild(button);
+    });
+  }
+
+  function askChatQuestion() {
+    const questions = {
+      service: 'Что вас интересует?',
+      name: 'Как к вам обращаться?',
+      contact: 'Оставьте телефон, email или Telegram для связи.',
+      message: 'Коротко расскажите о задаче и желаемых сроках.',
+    };
+    const placeholders = {
+      name: 'Ваше имя',
+      contact: '+7 999 000-00-00 или @telegram',
+      message: 'Опишите задачу',
+    };
+    addChatMessage(questions[chatStep]);
+    chatInput.placeholder = placeholders[chatStep] || 'Введите ответ';
+    chatForm.hidden = chatStep === 'service';
+    setQuickReplies(chatStep === 'service'
+      ? ['Создание сайта', 'Web-аудит', 'Бизнес-анализ', 'Системный анализ', 'Другое']
+      : []);
+  }
+
+  async function finishChat() {
+    chatForm.hidden = true;
+    setQuickReplies();
+    addChatMessage('Спасибо! Передаю данные оператору…');
+
+    try {
+      const result = await submitLead(chatLead);
+      addChatMessage(result.delivered
+        ? 'Готово! Мы получили заявку и скоро свяжемся с вами.'
+        : 'Я подготовил письмо с заявкой. Отправьте его в открывшемся почтовом приложении — и оператор скоро свяжется с вами.');
+    } catch (error) {
+      addChatMessage('Не удалось отправить данные. Напишите нам на hello@novatech.ru — мы обязательно ответим.');
+    }
+
+    setQuickReplies(['Начать заново']);
+    chatStep = 'done';
+  }
+
+  function handleChatAnswer(value) {
+    const answer = value.trim();
+    if (!answer) return;
+
+    if (chatStep === 'done') {
+      Object.assign(chatLead, { service: '', name: '', contact: '', message: '' });
+      chatMessages.replaceChildren();
+      chatStep = 'service';
+      addChatMessage('Здравствуйте! Я виртуальный помощник NovaTech. Помогу передать заявку специалисту.');
+      askChatQuestion();
+      return;
+    }
+
+    addChatMessage(answer, 'user');
+    if (chatStep === 'service') {
+      chatLead.service = answer;
+      chatStep = 'name';
+    } else if (chatStep === 'name') {
+      chatLead.name = answer;
+      chatStep = 'contact';
+    } else if (chatStep === 'contact') {
+      chatLead.contact = answer;
+      chatStep = 'message';
+    } else if (chatStep === 'message') {
+      chatLead.message = answer;
+      finishChat();
+      return;
+    }
+    askChatQuestion();
+    chatInput.focus();
+  }
+
+  function openChat() {
+    leadChat.classList.add('open');
+    leadChat.setAttribute('aria-hidden', 'false');
+    chatLauncher.setAttribute('aria-expanded', 'true');
+    if (!chatStarted) {
+      chatStarted = true;
+      addChatMessage('Здравствуйте! Я виртуальный помощник NovaTech. Помогу передать заявку специалисту.');
+      askChatQuestion();
+    }
+    (chatForm.hidden ? chatClose : chatInput).focus();
+  }
+
+  function closeChat() {
+    leadChat.classList.remove('open');
+    leadChat.setAttribute('aria-hidden', 'true');
+    chatLauncher.setAttribute('aria-expanded', 'false');
+    chatLauncher.focus();
+  }
+
+  chatLauncher.addEventListener('click', openChat);
+  chatClose.addEventListener('click', closeChat);
+  chatForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const value = chatInput.value;
+    chatInput.value = '';
+    handleChatAnswer(value);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && leadChat.classList.contains('open')) closeChat();
   });
 })();

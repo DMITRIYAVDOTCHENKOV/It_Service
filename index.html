@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="IT-услуги: веб-анализ, бизнес-анализ, системный анализ и создание сайтов любой сложности.">
+  <!-- Укажите URL webhook/CRM API, чтобы формы отправлялись оператору автоматически. -->
+  <meta name="lead-endpoint" content="">
   <title>NovaTech — IT-услуги и разработка сайтов</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -386,10 +388,24 @@
             </div>
           </div>
           <form class="contact__form" id="contactForm">
-            <input type="text" name="name" placeholder="Ваше имя" required class="contact__input">
-            <input type="email" name="email" placeholder="Email" required class="contact__input">
-            <textarea name="message" placeholder="Расскажите о проекте" rows="4" required class="contact__input contact__textarea"></textarea>
+            <label class="contact__field">
+              <span class="contact__label">Ваше имя</span>
+              <input type="text" name="name" autocomplete="name" placeholder="Как к вам обращаться" required class="contact__input">
+            </label>
+            <label class="contact__field">
+              <span class="contact__label">Телефон или email</span>
+              <input type="text" name="contact" autocomplete="email" placeholder="+7 999 000-00-00 или name@example.ru" required class="contact__input">
+            </label>
+            <label class="contact__field">
+              <span class="contact__label">О проекте</span>
+              <textarea name="message" placeholder="Что нужно сделать и в какие сроки" rows="4" required class="contact__input contact__textarea"></textarea>
+            </label>
+            <label class="contact__consent">
+              <input type="checkbox" name="consent" required>
+              <span>Согласен на обработку персональных данных</span>
+            </label>
             <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+            <p class="contact__status" id="contactStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -441,6 +457,32 @@
       </div>
     </div>
   </footer>
+
+  <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Открыть чат" aria-expanded="false" aria-controls="leadChat">
+    <span class="chat-launcher__pulse"></span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+    </svg>
+    <span>Написать нам</span>
+  </button>
+
+  <section class="lead-chat" id="leadChat" aria-label="Чат с NovaTech" aria-hidden="true">
+    <header class="lead-chat__header">
+      <div class="lead-chat__avatar" aria-hidden="true">N</div>
+      <div>
+        <strong>NovaTech</strong>
+        <span><i></i> Ответим в рабочее время</span>
+      </div>
+      <button class="lead-chat__close" id="chatClose" type="button" aria-label="Закрыть чат">×</button>
+    </header>
+    <div class="lead-chat__messages" id="chatMessages" aria-live="polite"></div>
+    <div class="lead-chat__quick" id="chatQuick"></div>
+    <form class="lead-chat__form" id="chatForm">
+      <label class="sr-only" for="chatInput">Сообщение</label>
+      <input id="chatInput" type="text" autocomplete="off" placeholder="Введите ответ" required>
+      <button type="submit" aria-label="Отправить ответ">→</button>
+    </form>
+  </section>
 
   <div class="modal" id="serviceModal" aria-hidden="true">
     <div class="modal__overlay" data-modal-close></div>
