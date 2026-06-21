@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=110039778', 'ym');
+
+    ym(110039778, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <!-- /Yandex.Metrika counter -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="IT-услуги: веб-анализ, бизнес-анализ, системный анализ и создание сайтов любой сложности.">
@@ -13,6 +25,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <noscript><div><img src="https://mc.yandex.ru/watch/110039778" style="position:absolute; left:-9999px;" alt=""></div></noscript>
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="#" class="logo">
@@ -24,8 +37,10 @@
         <a href="#services" class="nav__link">Услуги</a>
         <a href="#about" class="nav__link">О нас</a>
         <a href="#portfolio" class="nav__link">Портфолио</a>
+        <a href="#pricing" class="nav__link">Цены</a>
+        <a href="reviews.html" class="nav__link">Отзывы</a>
         <a href="#faq" class="nav__link">FAQ</a>
-        <a href="#contact" class="nav__link nav__link--cta">Связаться</a>
+        <a href="#contact" class="nav__link nav__link--cta" data-lead-open>Связаться</a>
       </nav>
 
       <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false">
@@ -52,7 +67,7 @@
           </p>
           <div class="hero__actions">
             <a href="#services" class="btn btn--primary">Смотреть услуги</a>
-            <a href="#contact" class="btn btn--ghost">Обсудить проект</a>
+            <a href="#contact" class="btn btn--ghost" data-lead-open>Обсудить проект</a>
           </div>
           <div class="hero__stats">
             <div class="stat">
@@ -112,7 +127,7 @@
               </ul>
               <div class="service-card__actions">
                 <button type="button" class="btn btn--outline service-card__btn" data-service="web">Подробнее</button>
-                <a href="#contact" class="service-card__link">Заказать →</a>
+                <a href="#contact" class="service-card__link" data-lead-open data-service-name="Web-анализ">Заказать →</a>
               </div>
             </div>
           </article>
@@ -139,7 +154,7 @@
               </ul>
               <div class="service-card__actions">
                 <button type="button" class="btn btn--outline service-card__btn" data-service="business">Подробнее</button>
-                <a href="#contact" class="service-card__link">Заказать →</a>
+                <a href="#contact" class="service-card__link" data-lead-open data-service-name="Бизнес-анализ">Заказать →</a>
               </div>
             </div>
           </article>
@@ -166,7 +181,7 @@
               </ul>
               <div class="service-card__actions">
                 <button type="button" class="btn btn--outline service-card__btn" data-service="system">Подробнее</button>
-                <a href="#contact" class="service-card__link">Заказать →</a>
+                <a href="#contact" class="service-card__link" data-lead-open data-service-name="Системный анализ">Заказать →</a>
               </div>
             </div>
           </article>
@@ -194,7 +209,7 @@
               </ul>
               <div class="service-card__actions">
                 <button type="button" class="btn btn--outline service-card__btn" data-service="development">Подробнее</button>
-                <a href="#contact" class="service-card__link">Обсудить →</a>
+                <a href="#contact" class="service-card__link" data-lead-open data-service-name="Создание сайта">Обсудить →</a>
               </div>
             </div>
           </article>
@@ -287,6 +302,48 @@
             </figcaption>
           </figure>
         </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="section-tag">Стоимость</span>
+          <h2 class="section-title">Каталог услуг и цен</h2>
+          <p class="section-desc">Финальная стоимость зависит от объёма задачи. После короткого брифа фиксируем смету и сроки.</p>
+        </div>
+        <div class="pricing__grid">
+          <article class="price-card reveal">
+            <span class="price-card__label">Web-анализ</span>
+            <h3>от 45 000 ₽</h3>
+            <p>Технический, UX/UI- и SEO-аудит сайта с планом улучшений.</p>
+            <ul><li>5–10 рабочих дней</li><li>Отчёт по 40+ параметрам</li><li>Приоритетный план работ</li></ul>
+            <button class="btn btn--outline" type="button" data-lead-open data-service-name="Web-анализ">Заказать аудит</button>
+          </article>
+          <article class="price-card reveal reveal--delay">
+            <span class="price-card__label">Бизнес-анализ</span>
+            <h3>от 90 000 ₽</h3>
+            <p>Исследование процессов, требований и сценариев будущего продукта.</p>
+            <ul><li>1–3 недели</li><li>Интервью и моделирование</li><li>ТЗ и roadmap</li></ul>
+            <button class="btn btn--outline" type="button" data-lead-open data-service-name="Бизнес-анализ">Обсудить задачу</button>
+          </article>
+          <article class="price-card reveal">
+            <span class="price-card__label">Системный анализ</span>
+            <h3>от 130 000 ₽</h3>
+            <p>Архитектура, API, модель данных и техническая документация.</p>
+            <ul><li>2–4 недели</li><li>C4/UML-диаграммы</li><li>Спецификация интеграций</li></ul>
+            <button class="btn btn--outline" type="button" data-lead-open data-service-name="Системный анализ">Получить оценку</button>
+          </article>
+          <article class="price-card price-card--featured reveal reveal--delay">
+            <span class="price-card__badge">Популярно</span>
+            <span class="price-card__label">Создание сайта</span>
+            <h3>от 180 000 ₽</h3>
+            <p>Дизайн, разработка, тестирование и запуск сайта под ключ.</p>
+            <ul><li>от 4 недель</li><li>Адаптивный дизайн</li><li>Поддержка после запуска</li></ul>
+            <button class="btn btn--primary" type="button" data-lead-open data-service-name="Создание сайта">Рассчитать проект</button>
+          </article>
+        </div>
+        <p class="pricing__note">* Цены указаны для учебного проекта и не являются публичной офертой.</p>
       </div>
     </section>
 
@@ -386,6 +443,11 @@
               <a href="mailto:hello@novatech.ru" class="contact__detail">hello@novatech.ru</a>
               <a href="tel:+74951234567" class="contact__detail">+7 (495) 123-45-67</a>
             </div>
+            <div class="messengers" aria-label="Связаться в мессенджере">
+              <button type="button" class="messenger messenger--telegram" data-messenger="Telegram">Telegram</button>
+              <button type="button" class="messenger messenger--max" data-messenger="MAX">MAX</button>
+              <button type="button" class="messenger messenger--whatsapp" data-messenger="WhatsApp">WhatsApp</button>
+            </div>
           </div>
           <form class="contact__form" id="contactForm">
             <label class="contact__field">
@@ -427,6 +489,8 @@
         <a href="#services" class="footer__link">Услуги</a>
         <a href="#about" class="footer__link">О нас</a>
         <a href="#portfolio" class="footer__link">Портфолио</a>
+        <a href="#pricing" class="footer__link">Цены</a>
+        <a href="reviews.html" class="footer__link">Отзывы</a>
         <a href="#faq" class="footer__link">FAQ</a>
         <a href="#contact" class="footer__link">Контакты</a>
       </div>
@@ -457,6 +521,70 @@
       </div>
     </div>
   </footer>
+
+  <div class="toast" id="siteToast" role="status" aria-live="polite" aria-hidden="true"></div>
+
+  <div class="lead-modal" id="leadModal" aria-hidden="true">
+    <div class="lead-modal__overlay" data-lead-close></div>
+    <div class="lead-modal__panel" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
+      <button class="modal__close" type="button" aria-label="Закрыть форму" data-lead-close>×</button>
+      <div class="lead-modal__form-view" id="leadFormView">
+        <span class="section-tag">Заявка на проект</span>
+        <h2 id="leadModalTitle">Расскажите о вашей задаче</h2>
+        <p>Заполните форму — мы уточним детали и свяжемся в течение рабочего дня.</p>
+        <form class="popup-form" id="leadPopupForm" novalidate>
+          <label>
+            <span>Услуга</span>
+            <select name="service" required>
+              <option value="">Выберите услугу</option>
+              <option>Web-анализ</option>
+              <option>Бизнес-анализ</option>
+              <option>Системный анализ</option>
+              <option>Создание сайта</option>
+              <option>Другое</option>
+            </select>
+            <small class="field-error"></small>
+          </label>
+          <label>
+            <span>Ваше имя</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Иван" required minlength="2">
+            <small class="field-error"></small>
+          </label>
+          <div class="popup-form__row">
+            <label>
+              <span>Телефон</span>
+              <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+7 999 000-00-00" required>
+              <small class="field-error"></small>
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" name="email" autocomplete="email" placeholder="name@example.ru" required>
+              <small class="field-error"></small>
+            </label>
+          </div>
+          <label>
+            <span>Коротко о задаче</span>
+            <textarea name="message" rows="3" placeholder="Что нужно сделать и в какие сроки" required minlength="10"></textarea>
+            <small class="field-error"></small>
+          </label>
+          <label class="contact__consent">
+            <input type="checkbox" name="consent" required>
+            <span>Согласен на обработку персональных данных</span>
+          </label>
+          <small class="field-error field-error--consent" id="popupConsentError"></small>
+          <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+        </form>
+      </div>
+      <div class="lead-modal__success" id="leadSuccess" hidden>
+        <div class="lead-modal__success-icon">✓</div>
+        <h2>Спасибо! Заявка принята</h2>
+        <p>Номер вашей заявки</p>
+        <strong id="leadRequestNumber"></strong>
+        <span>Мы скоро с вами свяжемся.</span>
+        <button class="btn btn--primary" type="button" data-lead-close>Закрыть</button>
+      </div>
+    </div>
+  </div>
 
   <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Открыть чат" aria-expanded="false" aria-controls="leadChat">
     <span class="chat-launcher__pulse"></span>
@@ -503,7 +631,7 @@
       <div class="modal__body" id="modalBody"></div>
       <div class="modal__footer">
         <span class="modal__meta" id="modalMeta"></span>
-        <a href="#contact" class="btn btn--primary" id="modalCta" data-modal-close>Заказать услугу</a>
+        <a href="#contact" class="btn btn--primary" id="modalCta" data-modal-close data-lead-open>Заказать услугу</a>
       </div>
     </div>
   </div>
