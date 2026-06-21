@@ -21,6 +21,44 @@
   const chatForm = document.getElementById('chatForm');
   const chatInput = document.getElementById('chatInput');
   const leadEndpoint = document.querySelector('meta[name="lead-endpoint"]')?.content.trim();
+  const leadModal = document.getElementById('leadModal');
+  const leadPopupForm = document.getElementById('leadPopupForm');
+  const leadFormView = document.getElementById('leadFormView');
+  const leadSuccess = document.getElementById('leadSuccess');
+  const leadRequestNumber = document.getElementById('leadRequestNumber');
+  const siteToast = document.getElementById('siteToast');
+  let toastTimer;
+
+  const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value.trim());
+  const isValidPhone = (value) => {
+    const digits = value.replace(/\D/g, '');
+    return digits.length >= 10 && digits.length <= 15;
+  };
+  const isValidContact = (value) => isValidEmail(value) || isValidPhone(value) || /^@[a-zA-Z0-9_]{5,}$/.test(value.trim());
+
+  function generateRequestNumber(prefix = 'NT') {
+    const date = new Date();
+    const day = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('');
+    const random = Math.floor(1000 + Math.random() * 9000);
+    return `${prefix}-${day}-${random}`;
+  }
+
+  function saveDemoEntry(key, entry) {
+    const entries = JSON.parse(localStorage.getItem(key) || '[]');
+    entries.push(entry);
+    localStorage.setItem(key, JSON.stringify(entries.slice(-50)));
+  }
+
+  function showToast(message) {
+    clearTimeout(toastTimer);
+    siteToast.textContent = message;
+    siteToast.classList.add('show');
+    siteToast.setAttribute('aria-hidden', 'false');
+    toastTimer = setTimeout(() => {
+      siteToast.classList.remove('show');
+      siteToast.setAttribute('aria-hidden', 'true');
+    }, 5000);
+  }
 
   async function submitLead(lead) {
     if (leadEndpoint) {
@@ -34,15 +72,8 @@
       return { delivered: true };
     }
 
-    const subject = encodeURIComponent(`Новая заявка NovaTech — ${lead.service || 'с сайта'}`);
-    const body = encodeURIComponent([
-      `Имя: ${lead.name}`,
-      `Контакт: ${lead.contact}`,
-      `Услуга: ${lead.service || 'Не указана'}`,
-      `Задача: ${lead.message}`,
-    ].join('\n'));
-    window.location.href = `mailto:hello@novatech.ru?subject=${subject}&body=${body}`;
-    return { delivered: false };
+    saveDemoEntry('novatechLeads', { ...lead, createdAt: new Date().toISOString() });
+    return { delivered: true, demo: true };
   }
 
   const serviceIcons = {
@@ -177,6 +208,7 @@
     modalBody.innerHTML = data.body;
     modalMeta.textContent = data.meta;
     modalCta.textContent = data.cta;
+    modalCta.dataset.serviceName = data.title;
 
     serviceModal.classList.add('open');
     serviceModal.setAttribute('aria-hidden', 'false');
@@ -262,19 +294,27 @@
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
     const data = new FormData(contactForm);
+    const contact = String(data.get('contact') || '');
+    if (!isValidContact(contact)) {
+      contactStatus.textContent = 'Укажите корректный телефон, email или Telegram в формате @username.';
+      contactForm.elements.contact.focus();
+      return;
+    }
+    const requestNumber = generateRequestNumber();
     btn.textContent = 'Отправляем…';
     btn.disabled = true;
 
     try {
       const result = await submitLead({
         source: 'contact-form',
+        requestNumber,
         name: data.get('name'),
-        contact: data.get('contact'),
+        contact,
         message: data.get('message'),
       });
       contactStatus.textContent = result.delivered
-        ? 'Спасибо! Заявка отправлена. Скоро с вами свяжемся.'
-        : 'Открылось письмо с заявкой — отправьте его, чтобы оператор получил данные.';
+        ? `Спасибо! Заявка ${requestNumber} принята. Скоро с вами свяжемся.`
+        : 'Не удалось отправить заявку.';
       contactForm.reset();
     } catch (error) {
       contactStatus.textContent = 'Не получилось отправить заявку. Напишите нам на hello@novatech.ru.';
@@ -282,6 +322,98 @@
       btn.textContent = originalText;
       btn.disabled = false;
     }
+  });
+
+  function setFieldError(field, message = '') {
+    const error = field.closest('label')?.querySelector('.field-error');
+    field.classList.toggle('invalid', Boolean(message));
+    if (error) error.textContent = message;
+  }
+
+  function validatePopupForm() {
+    const fields = leadPopupForm.elements;
+    let valid = true;
+    const checks = [
+      [fields.service, fields.service.value ? '' : 'Выберите услугу.'],
+      [fields.name, fields.name.value.trim().length >= 2 ? '' : 'Введите имя — минимум 2 символа.'],
+      [fields.phone, isValidPhone(fields.phone.value) ? '' : 'Введите телефон: от 10 до 15 цифр.'],
+      [fields.email, isValidEmail(fields.email.value) ? '' : 'Введите корректный email.'],
+      [fields.message, fields.message.value.trim().length >= 10 ? '' : 'Опишите задачу — минимум 10 символов.'],
+    ];
+    checks.forEach(([field, message]) => {
+      setFieldError(field, message);
+      if (message) valid = false;
+    });
+    const consentError = document.getElementById('popupConsentError');
+    consentError.textContent = fields.consent.checked ? '' : 'Необходимо согласие на обработку данных.';
+    if (!fields.consent.checked) valid = false;
+    return valid;
+  }
+
+  function openLeadModal(service = '') {
+    leadPopupForm.reset();
+    leadPopupForm.querySelectorAll('.field-error').forEach((error) => { error.textContent = ''; });
+    leadPopupForm.querySelectorAll('.invalid').forEach((field) => field.classList.remove('invalid'));
+    leadFormView.hidden = false;
+    leadSuccess.hidden = true;
+    if (service) leadPopupForm.elements.service.value = service;
+    leadModal.classList.add('open');
+    leadModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lead-modal-open');
+    setTimeout(() => leadPopupForm.elements.name.focus(), 50);
+  }
+
+  function closeLeadModal() {
+    leadModal.classList.remove('open');
+    leadModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lead-modal-open');
+  }
+
+  document.querySelectorAll('[data-lead-open]').forEach((trigger) => {
+    trigger.addEventListener('click', (event) => {
+      event.preventDefault();
+      openLeadModal(trigger.dataset.serviceName || '');
+    });
+  });
+
+  leadModal.querySelectorAll('[data-lead-close]').forEach((element) => element.addEventListener('click', closeLeadModal));
+
+  leadPopupForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!validatePopupForm()) {
+      leadPopupForm.querySelector('.invalid')?.focus();
+      return;
+    }
+    const button = leadPopupForm.querySelector('button[type="submit"]');
+    const data = new FormData(leadPopupForm);
+    const requestNumber = generateRequestNumber();
+    button.disabled = true;
+    button.textContent = 'Отправляем…';
+    try {
+      await submitLead({
+        source: 'popup',
+        requestNumber,
+        service: data.get('service'),
+        name: data.get('name'),
+        phone: data.get('phone'),
+        email: data.get('email'),
+        contact: `${data.get('phone')} / ${data.get('email')}`,
+        message: data.get('message'),
+      });
+      leadRequestNumber.textContent = requestNumber;
+      leadFormView.hidden = true;
+      leadSuccess.hidden = false;
+      leadSuccess.querySelector('button').focus();
+    } catch (error) {
+      showToast('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на почту.');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Отправить заявку';
+    }
+  });
+
+  document.querySelectorAll('[data-messenger]').forEach((button) => {
+    button.addEventListener('click', () => showToast(`${button.dataset.messenger}: канал связи находится в разработке.`));
   });
 
   const chatLead = { source: 'chat', service: '', name: '', contact: '', message: '' };
@@ -349,6 +481,12 @@
     const answer = value.trim();
     if (!answer) return;
 
+    if (chatStep === 'contact' && !isValidContact(answer)) {
+      addChatMessage('Проверьте контакт: укажите телефон от 10 цифр, корректный email или Telegram в формате @username.');
+      chatInput.focus();
+      return;
+    }
+
     if (chatStep === 'done') {
       Object.assign(chatLead, { service: '', name: '', contact: '', message: '' });
       chatMessages.replaceChildren();
@@ -407,5 +545,6 @@
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && leadChat.classList.contains('open')) closeChat();
+    if (event.key === 'Escape' && leadModal.classList.contains('open')) closeLeadModal();
   });
 })();
