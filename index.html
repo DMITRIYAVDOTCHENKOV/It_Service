@@ -22,7 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20260621-4">
+  <link rel="stylesheet" href="css/pages.css?v=20260621-1">
 </head>
 <body>
   <noscript><div><img src="https://mc.yandex.ru/watch/110039778" style="position:absolute; left:-9999px;" alt=""></div></noscript>
@@ -37,7 +38,7 @@
         <a href="#services" class="nav__link">Услуги</a>
         <a href="#about" class="nav__link">О нас</a>
         <a href="#portfolio" class="nav__link">Портфолио</a>
-        <a href="#pricing" class="nav__link">Цены</a>
+        <a href="pricing.html" class="nav__link">Цены</a>
         <a href="reviews.html" class="nav__link">Отзывы</a>
         <a href="#faq" class="nav__link">FAQ</a>
         <a href="#contact" class="nav__link nav__link--cta" data-lead-open>Связаться</a>
@@ -305,45 +306,27 @@
       </div>
     </section>
 
-    <section class="pricing" id="pricing">
-      <div class="container">
-        <div class="section-head section-head--center reveal">
-          <span class="section-tag">Стоимость</span>
-          <h2 class="section-title">Каталог услуг и цен</h2>
-          <p class="section-desc">Финальная стоимость зависит от объёма задачи. После короткого брифа фиксируем смету и сроки.</p>
+    <section class="pricing-preview" id="pricing">
+      <div class="container pricing-preview__grid">
+        <div class="pricing-preview__media reveal">
+          <img src="img/service-development.jpg" alt="Команда обсуждает стоимость и этапы разработки" width="560" height="420" loading="lazy">
+          <div class="pricing-preview__badge"><strong>4</strong><span>направления работы</span></div>
         </div>
-        <div class="pricing__grid">
-          <article class="price-card reveal">
-            <span class="price-card__label">Web-анализ</span>
-            <h3>от 45 000 ₽</h3>
-            <p>Технический, UX/UI- и SEO-аудит сайта с планом улучшений.</p>
-            <ul><li>5–10 рабочих дней</li><li>Отчёт по 40+ параметрам</li><li>Приоритетный план работ</li></ul>
-            <button class="btn btn--outline" type="button" data-lead-open data-service-name="Web-анализ">Заказать аудит</button>
-          </article>
-          <article class="price-card reveal reveal--delay">
-            <span class="price-card__label">Бизнес-анализ</span>
-            <h3>от 90 000 ₽</h3>
-            <p>Исследование процессов, требований и сценариев будущего продукта.</p>
-            <ul><li>1–3 недели</li><li>Интервью и моделирование</li><li>ТЗ и roadmap</li></ul>
-            <button class="btn btn--outline" type="button" data-lead-open data-service-name="Бизнес-анализ">Обсудить задачу</button>
-          </article>
-          <article class="price-card reveal">
-            <span class="price-card__label">Системный анализ</span>
-            <h3>от 130 000 ₽</h3>
-            <p>Архитектура, API, модель данных и техническая документация.</p>
-            <ul><li>2–4 недели</li><li>C4/UML-диаграммы</li><li>Спецификация интеграций</li></ul>
-            <button class="btn btn--outline" type="button" data-lead-open data-service-name="Системный анализ">Получить оценку</button>
-          </article>
-          <article class="price-card price-card--featured reveal reveal--delay">
-            <span class="price-card__badge">Популярно</span>
-            <span class="price-card__label">Создание сайта</span>
-            <h3>от 180 000 ₽</h3>
-            <p>Дизайн, разработка, тестирование и запуск сайта под ключ.</p>
-            <ul><li>от 4 недель</li><li>Адаптивный дизайн</li><li>Поддержка после запуска</li></ul>
-            <button class="btn btn--primary" type="button" data-lead-open data-service-name="Создание сайта">Рассчитать проект</button>
-          </article>
+        <div class="pricing-preview__content reveal reveal--delay">
+          <span class="section-tag">Прозрачная стоимость</span>
+          <h2 class="section-title">Понятные цены без скрытых работ</h2>
+          <p class="section-desc">Мы разделили услуги по задачам и показали ориентиры по бюджету. На отдельной странице — состав каждого пакета, сроки и результат.</p>
+          <div class="pricing-preview__prices">
+            <span>Web-анализ <strong>от 45 000 ₽</strong></span>
+            <span>Бизнес-анализ <strong>от 90 000 ₽</strong></span>
+            <span>Системный анализ <strong>от 130 000 ₽</strong></span>
+            <span>Создание сайта <strong>от 180 000 ₽</strong></span>
+          </div>
+          <div class="hero__actions">
+            <a href="pricing.html" class="btn btn--primary">Открыть каталог</a>
+            <button type="button" class="btn btn--ghost" data-lead-open>Получить расчёт</button>
+          </div>
         </div>
-        <p class="pricing__note">* Цены указаны для учебного проекта и не являются публичной офертой.</p>
       </div>
     </section>
 
@@ -489,7 +472,7 @@
         <a href="#services" class="footer__link">Услуги</a>
         <a href="#about" class="footer__link">О нас</a>
         <a href="#portfolio" class="footer__link">Портфолио</a>
-        <a href="#pricing" class="footer__link">Цены</a>
+        <a href="pricing.html" class="footer__link">Цены</a>
         <a href="reviews.html" class="footer__link">Отзывы</a>
         <a href="#faq" class="footer__link">FAQ</a>
         <a href="#contact" class="footer__link">Контакты</a>
@@ -528,11 +511,28 @@
     <div class="lead-modal__overlay" data-lead-close></div>
     <div class="lead-modal__panel" role="dialog" aria-modal="true" aria-labelledby="leadModalTitle">
       <button class="modal__close" type="button" aria-label="Закрыть форму" data-lead-close>×</button>
-      <div class="lead-modal__form-view" id="leadFormView">
-        <span class="section-tag">Заявка на проект</span>
-        <h2 id="leadModalTitle">Расскажите о вашей задаче</h2>
-        <p>Заполните форму — мы уточним детали и свяжемся в течение рабочего дня.</p>
-        <form class="popup-form" id="leadPopupForm" novalidate>
+      <aside class="lead-modal__visual">
+        <img src="img/hero.jpg" alt="Обсуждение цифрового проекта" width="420" height="620">
+        <div class="lead-modal__visual-copy">
+          <span>Быстрый старт</span>
+          <h3>От идеи до понятного плана</h3>
+          <ul><li>Ответим в рабочее время</li><li>Оценим бюджет и сроки</li><li>Предложим следующий шаг</li></ul>
+        </div>
+      </aside>
+      <div class="lead-modal__content">
+        <div class="lead-modal__form-view" id="leadFormView">
+          <span class="section-tag">Заявка на проект</span>
+          <h2 id="leadModalTitle">Расскажите о вашей задаче</h2>
+          <p>Заполните форму — мы уточним детали и свяжемся в течение рабочего дня.</p>
+          <div class="lead-modal__messengers">
+            <span>Или выберите мессенджер:</span>
+            <div class="messengers">
+              <button type="button" class="messenger messenger--telegram" data-messenger="Telegram">Telegram</button>
+              <button type="button" class="messenger messenger--max" data-messenger="MAX">MAX</button>
+              <button type="button" class="messenger messenger--whatsapp" data-messenger="WhatsApp">WhatsApp</button>
+            </div>
+          </div>
+          <form class="popup-form" id="leadPopupForm" novalidate>
           <label>
             <span>Услуга</span>
             <select name="service" required>
@@ -572,16 +572,18 @@
             <span>Согласен на обработку персональных данных</span>
           </label>
           <small class="field-error field-error--consent" id="popupConsentError"></small>
-          <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
-        </form>
-      </div>
-      <div class="lead-modal__success" id="leadSuccess" hidden>
-        <div class="lead-modal__success-icon">✓</div>
-        <h2>Спасибо! Заявка принята</h2>
-        <p>Номер вашей заявки</p>
-        <strong id="leadRequestNumber"></strong>
-        <span>Мы скоро с вами свяжемся.</span>
-        <button class="btn btn--primary" type="button" data-lead-close>Закрыть</button>
+            <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+          </form>
+          <a class="lead-modal__details-link" href="project.html">Посмотреть, как проходит работа над проектом →</a>
+        </div>
+        <div class="lead-modal__success" id="leadSuccess" hidden>
+          <div class="lead-modal__success-icon">✓</div>
+          <h2>Спасибо! Заявка принята</h2>
+          <p>Номер вашей заявки</p>
+          <strong id="leadRequestNumber"></strong>
+          <span>Мы скоро с вами свяжемся.</span>
+          <button class="btn btn--primary" type="button" data-lead-close>Закрыть</button>
+        </div>
       </div>
     </div>
   </div>
@@ -636,6 +638,6 @@
     </div>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260621-4"></script>
 </body>
 </html>
