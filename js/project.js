@@ -4,6 +4,7 @@
   const requestNumber = document.getElementById('projectRequestNumber');
   const consentError = document.getElementById('projectConsentError');
   if (!form) return;
+  form.dataset.readyAt = String(Date.now());
 
   const isEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value.trim());
   const isPhone = (value) => {
@@ -40,6 +41,16 @@
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (form.elements.website?.value) return;
+    if (Date.now() - Number(form.dataset.readyAt) < 700) {
+      consentError.textContent = 'Форма заполнена слишком быстро. Повторите отправку.';
+      return;
+    }
+    const lastSubmit = Number(localStorage.getItem('novatechLastSubmit:project') || 0);
+    if (Date.now() - lastSubmit < 30000) {
+      consentError.textContent = 'Повторную заявку можно отправить через 30 секунд.';
+      return;
+    }
     if (!validate()) {
       form.querySelector('.invalid')?.focus();
       return;
@@ -51,6 +62,7 @@
     const leads = JSON.parse(localStorage.getItem('novatechLeads') || '[]');
     leads.push({ ...data, requestNumber: number, source: 'project-page', createdAt: new Date().toISOString() });
     localStorage.setItem('novatechLeads', JSON.stringify(leads.slice(-50)));
+    localStorage.setItem('novatechLastSubmit:project', String(Date.now()));
     requestNumber.textContent = number;
     form.hidden = true;
     success.hidden = false;
