@@ -4,6 +4,7 @@
   const status = document.getElementById('reviewStatus');
   const consentError = document.getElementById('reviewConsentError');
   const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value.trim());
+  form.dataset.readyAt = String(Date.now());
 
   function setError(field, message = '') {
     field.classList.toggle('invalid', Boolean(message));
@@ -62,6 +63,16 @@
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (form.elements.website?.value) return;
+    if (Date.now() - Number(form.dataset.readyAt) < 700) {
+      status.textContent = 'Форма заполнена слишком быстро. Повторите отправку.';
+      return;
+    }
+    const lastSubmit = Number(localStorage.getItem('novatechLastSubmit:review') || 0);
+    if (Date.now() - lastSubmit < 30000) {
+      status.textContent = 'Повторный отзыв можно отправить через 30 секунд.';
+      return;
+    }
     if (!validate()) {
       form.querySelector('.invalid')?.focus();
       return;
@@ -79,8 +90,10 @@
     const saved = JSON.parse(localStorage.getItem('novatechReviews') || '[]');
     saved.push(review);
     localStorage.setItem('novatechReviews', JSON.stringify(saved.slice(-20)));
+    localStorage.setItem('novatechLastSubmit:review', String(Date.now()));
     grid.appendChild(createReviewCard(review));
     form.reset();
+    form.dataset.readyAt = String(Date.now());
     status.textContent = 'Спасибо! Отзыв сохранён и ожидает модерации.';
     grid.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });

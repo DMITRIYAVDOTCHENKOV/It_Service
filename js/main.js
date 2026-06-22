@@ -60,6 +60,22 @@
     }, 5000);
   }
 
+  function prepareProtectedForm(form) {
+    if (form) form.dataset.readyAt = String(Date.now());
+  }
+
+  function canSubmit(form, key, showError) {
+    if (form.elements.website?.value) return false;
+    if (Date.now() - Number(form.dataset.readyAt || 0) < 700) { showError('????? ????????? ??????? ??????. ????????? ?????? ? ????????? ????????.'); return false; }
+    const last = Number(localStorage.getItem(`novatechLastSubmit:${key}`) || 0);
+    if (Date.now() - last < 30000) { showError('????????? ?????? ????? ????????? ????? 30 ??????.'); return false; }
+    return true;
+  }
+
+  function markSubmitted(key) { localStorage.setItem(`novatechLastSubmit:${key}`, String(Date.now())); }
+
+  prepareProtectedForm(contactForm);
+
   async function submitLead(lead) {
     if (leadEndpoint) {
       const response = await fetch(leadEndpoint, {
@@ -86,7 +102,7 @@
   const services = {
     web: {
       title: 'Web-анализ',
-      image: 'img/service-web.jpg',
+      image: 'img/service-web.webp',
       imageAlt: 'Web-анализ и аудит сайта',
       lead: 'Комплексный аудит вашего сайта: от технического состояния до пользовательского опыта и поисковой видимости.',
       meta: 'Срок: 5–10 рабочих дней',
@@ -112,7 +128,7 @@
     },
     business: {
       title: 'Бизнес-анализ',
-      image: 'img/service-business.jpg',
+      image: 'img/service-business.webp',
       imageAlt: 'Бизнес-анализ и моделирование процессов',
       lead: 'Переводим бизнес-задачи в понятные IT-требования: выявляем потребности, описываем процессы и формируем roadmap проекта.',
       meta: 'Срок: 1–3 недели',
@@ -138,7 +154,7 @@
     },
     system: {
       title: 'Системный анализ',
-      image: 'img/service-system.jpg',
+      image: 'img/service-system.webp',
       imageAlt: 'Системный анализ и архитектура IT',
       lead: 'Проектируем надёжную архитектуру IT-решений: интеграции, API, базы данных и документация для масштабируемых систем.',
       meta: 'Срок: 2–4 недели',
@@ -164,7 +180,7 @@
     },
     development: {
       title: 'Создание сайтов',
-      image: 'img/service-development.jpg',
+      image: 'img/service-development.webp',
       imageAlt: 'Разработка сайтов и веб-приложений',
       lead: 'Разрабатываем сайты и веб-приложения любой сложности — от лендингов до корпоративных порталов с личными кабинетами и интеграциями.',
       meta: 'Срок: от 2 недель до 3+ месяцев',
@@ -294,6 +310,7 @@
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
     const data = new FormData(contactForm);
+    if (!canSubmit(contactForm, 'contact', (message) => { contactStatus.textContent = message; })) return;
     const contact = String(data.get('contact') || '');
     if (!isValidContact(contact)) {
       contactStatus.textContent = 'Укажите корректный телефон, email или Telegram в формате @username.';
@@ -316,6 +333,8 @@
         ? `Спасибо! Заявка ${requestNumber} принята. Скоро с вами свяжемся.`
         : 'Не удалось отправить заявку.';
       contactForm.reset();
+      markSubmitted('contact');
+      prepareProtectedForm(contactForm);
     } catch (error) {
       contactStatus.textContent = 'Не получилось отправить заявку. Напишите нам на hello@novatech.ru.';
     } finally {
@@ -357,6 +376,7 @@
     leadFormView.hidden = false;
     leadSuccess.hidden = true;
     if (service) leadPopupForm.elements.service.value = service;
+    prepareProtectedForm(leadPopupForm);
     leadModal.classList.add('open');
     leadModal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('lead-modal-open');
@@ -380,6 +400,7 @@
 
   leadPopupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (!canSubmit(leadPopupForm, 'popup', showToast)) return;
     if (!validatePopupForm()) {
       leadPopupForm.querySelector('.invalid')?.focus();
       return;
@@ -404,6 +425,7 @@
       leadFormView.hidden = true;
       leadSuccess.hidden = false;
       leadSuccess.querySelector('button').focus();
+      markSubmitted('popup');
     } catch (error) {
       showToast('Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на почту.');
     } finally {

@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Отзывы клиентов о работе NovaTech и форма для отправки нового отзыва.">
+  <title>Отзывы клиентов — NovaTech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20260622-1">
+  <link rel="stylesheet" href="css/pages.css?v=20260622-1">
+</head>
+<body>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -15,20 +25,6 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/110039778" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-
-
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Отзывы клиентов о работе NovaTech и форма для отправки нового отзыва.">
-  <title>Отзывы клиентов — NovaTech</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20260621-4">
-  <link rel="stylesheet" href="css/pages.css?v=20260621-1">
-</head>
-<body>
   <header class="header header--scrolled">
     <div class="container header__inner">
       <a href="index.html" class="logo"><span class="logo__icon">◆</span><span class="logo__text">NovaTech</span></a>
@@ -79,6 +75,7 @@
             <p class="section-desc">После отправки отзыв появится в списке на этом устройстве и будет отмечен как ожидающий модерации.</p>
           </div>
           <form class="review-form" id="reviewForm" novalidate>
+            <label class="honeypot" aria-hidden="true">Ваш сайт<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
             <label><span>Ваше имя</span><input type="text" name="name" required minlength="2" placeholder="Как к вам обращаться"><small class="field-error"></small></label>
             <label><span>Email</span><input type="email" name="email" required placeholder="name@example.ru"><small class="field-error"></small></label>
             <label><span>Оценка</span><select name="rating" required><option value="">Выберите оценку</option><option value="5">5 — Отлично</option><option value="4">4 — Хорошо</option><option value="3">3 — Нормально</option><option value="2">2 — Есть замечания</option><option value="1">1 — Плохо</option></select><small class="field-error"></small></label>
@@ -99,6 +96,6 @@
       <a href="index.html">Вернуться на главную</a>
     </div>
   </footer>
-  <script src="js/reviews.js?v=20260621-4"></script>
+  <script src="js/reviews.js?v=20260622-1"></script>
 </body>
 </html>
